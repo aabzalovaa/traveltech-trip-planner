@@ -1,9 +1,13 @@
+<img width="931" height="234" alt="image" src="https://github.com/user-attachments/assets/a020bf44-cc2e-4cdd-9f6a-6dda3c34c6c5" />
+
+
+```plantuml
 @startuml
 !define Table(name,desc) entity name as "desc" << (T,#FFAAAA) >>
 title Notification DB (Notification Service)
 
 Table(Notification, "Notification (Центр уведомлений)") {
-  id: ObjectId PK (Идентификатор уведомления)
+  id: UUID PK (Идентификатор уведомления)
   --
   user_id: UUID NOT NULL (Кому адресовано)
   trip_id: UUID NOT NULL (К какой поездке относится)
@@ -15,3 +19,4 @@ Table(Notification, "Notification (Центр уведомлений)") {
 }
 
 @enduml
+```
