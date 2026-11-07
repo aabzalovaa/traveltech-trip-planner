@@ -1,3 +1,7 @@
+<img width="1672" height="988" alt="image" src="https://github.com/user-attachments/assets/2f639abf-20d6-4bc4-a430-2d632b3b46bf" />
+
+
+```plantuml
 @startuml
 title Отслеживание статуса рейса
 hide footbox
@@ -48,3 +52,4 @@ else Статус получен
   end
 end
 @enduml
+```
