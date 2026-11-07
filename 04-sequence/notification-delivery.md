@@ -1,3 +1,6 @@
+<img width="1157" height="641" alt="image" src="https://github.com/user-attachments/assets/7485a817-00bf-46d3-9ba2-9df269bc81cc" />
+
+```plantuml
 @startuml
 title Отправка уведомления пользователям
 hide footbox
@@ -31,3 +34,4 @@ NT -> DB : Читает непрочитанные и помечает проч�
 DB --> NT : Уведомления
 NT --> U : Список уведомлений
 @enduml
+```
