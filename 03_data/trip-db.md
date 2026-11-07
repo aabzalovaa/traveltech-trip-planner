@@ -1,3 +1,8 @@
+<img width="1840" height="649" alt="image" src="https://github.com/user-attachments/assets/f078633b-7a26-4553-b2de-b748ce81cd25" />
+
+
+
+```plantuml
 @startuml
 !define Table(name,desc) entity name as "desc" << (T,#FFAAAA) >>
 title Trip DB (Core Trip Service)
@@ -45,3 +50,4 @@ Trip ||--o{ Segment : "1:M"
 Segment ||--o{ PlanChange : "1:M"
 
 @enduml
+```
