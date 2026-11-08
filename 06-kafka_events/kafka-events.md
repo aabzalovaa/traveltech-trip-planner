@@ -1,7 +1,7 @@
 # Apache Kafka: топики и события
 
 
-## 1. `TRIP_DISRUPTION`: обнаружен сбой
+## 1. `TRIP_DISRUPTION`: изменения статуса 
 
 Топик `trip.disruption`.
 
