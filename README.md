@@ -16,3 +16,9 @@ TravelTech-сервис позволяет пользователю сплани
 - Паспортные данные запрещено хранить дольше, чем это необходимо для поездки.
 
 ## Документы проекта
+- [01-requirements](./01-requirements)
+- [02-architecture](./02-architecture)
+- [03-ER-diagram](./03-ER-diagram)
+- [04-sequence](./04-sequence)
+- [05-openapi](./05-openapi)
+- [06-kafka_events](./06-kafka_events)
