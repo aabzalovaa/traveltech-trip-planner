@@ -8,19 +8,8 @@
 | Alternatives DB | Alternatives Service | `Alternative`, `PlanChange` (новая) |
 | Notification DB | Notification Service | `Notification` |
 
-## 2. Ссылки между БД
 
-Внешних ключей между БД нет. Целостность обеспечивают события Kafka и API сервисов.
-
-| Колонка | Раньше | Теперь |
-|---|---|---|
-| `MonitoredFlight.flight_id`, `trip_id`, `itinerary_item_id` | Новые колонки | Ссылка на Trip DB |
-| `Alternative.itinerary_item_id` | FK на `ItineraryItem` | Ссылка на Trip DB |
-| `Notification.trip_id` | FK на `Trip` | Ссылка на Trip DB |
-| `PlanChange.itinerary_item_id` | Новая колонка | Ссылка на Trip DB |
-
-
-[## 3. Trip DB (Core Trip Service)
+[## 2. Trip DB (Core Trip Service)
 <img width="2351" height="1136" alt="image" src="https://github.com/user-attachments/assets/54c3227d-8c0f-47d0-964e-af7446c92685" />
 
 ```plantuml
@@ -130,7 +119,7 @@ end note
 @enduml
 ```
 
-## 4. Monitoring DB (Monitoring Service)
+## 3. Monitoring DB (Monitoring Service)
 <img width="1649" height="573" alt="image" src="https://github.com/user-attachments/assets/845ec085-7831-44c4-bb41-eee0c098d2a9" />
 
 ```plantuml
@@ -182,7 +171,7 @@ FlightSource ||--o{ FlightStatusHistory : "передает данные"
 @enduml
 ```
 
-## 5. Alternatives DB (Alternatives Service)
+## 4. Alternatives DB (Alternatives Service)
 <img width="918" height="393" alt="image" src="https://github.com/user-attachments/assets/b7fcca7a-fa7e-45d7-a412-9caceacbd7f4" />
 
 ```plantuml
@@ -215,7 +204,7 @@ Alternative ||--o{ PlanChange : "выбирается через"
 @enduml
 ```
 
-## 6. Notification DB (Notification Service)
+## 5. Notification DB (Notification Service)
 <img width="952" height="426" alt="image" src="https://github.com/user-attachments/assets/0b5e3819-ab91-4912-a62d-e4a5ad628fc9" />
 
 ```plantuml
