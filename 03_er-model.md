@@ -20,7 +20,8 @@
 | `PlanChange.itinerary_item_id` | Новая колонка | Ссылка на Trip DB |
 
 
-## 3. Trip DB (Core Trip Service)
+[## 3. Trip DB (Core Trip Service)
+<img width="2351" height="1136" alt="image" src="https://github.com/user-attachments/assets/54c3227d-8c0f-47d0-964e-af7446c92685" />
 
 ```plantuml
 @startuml
@@ -130,6 +131,7 @@ end note
 ```
 
 ## 4. Monitoring DB (Monitoring Service)
+<img width="1649" height="573" alt="image" src="https://github.com/user-attachments/assets/845ec085-7831-44c4-bb41-eee0c098d2a9" />
 
 ```plantuml
 @startuml
@@ -181,6 +183,7 @@ FlightSource ||--o{ FlightStatusHistory : "передает данные"
 ```
 
 ## 5. Alternatives DB (Alternatives Service)
+<img width="918" height="393" alt="image" src="https://github.com/user-attachments/assets/b7fcca7a-fa7e-45d7-a412-9caceacbd7f4" />
 
 ```plantuml
 @startuml
@@ -213,6 +216,7 @@ Alternative ||--o{ PlanChange : "выбирается через"
 ```
 
 ## 6. Notification DB (Notification Service)
+<img width="952" height="426" alt="image" src="https://github.com/user-attachments/assets/0b5e3819-ab91-4912-a62d-e4a5ad628fc9" />
 
 ```plantuml
 @startuml
