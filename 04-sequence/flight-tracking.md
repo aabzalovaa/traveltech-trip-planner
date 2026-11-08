@@ -1,4 +1,4 @@
-<img width="1672" height="988" alt="image" src="https://github.com/user-attachments/assets/2f639abf-20d6-4bc4-a430-2d632b3b46bf" />
+<img width="2281" height="1237" alt="image" src="https://github.com/user-attachments/assets/ee728ec4-0b9a-410d-954e-b397522a94ab" />
 
 
 ```plantuml
@@ -8,24 +8,33 @@ hide footbox
 autonumber
 
 participant "Monitoring\nService" as MON
+database "Monitoring DB" as MDB
 participant "Flight Status API" as FS #E8E8E8
-participant "Резервный провайдер\nстатусов" as RP #E8E8E8
+participant "Backup Flight Status API" as RP #E8E8E8
 queue "Message Broker\n(Kafka)" as KF
 participant "Core Trip\nService" as CT
 participant "Notification\nService" as NT
 
-note over MON : Запуск по расписанию\n(опрос всех активных рейсов)
+CT ->> KF : Публикует FLIGHT_TRACKING_UPDATED\n(рейс, допустимая задержка)
+KF ->> MON : FLIGHT_TRACKING_UPDATED
+MON -> MDB : Сохраняет рейс под слежением
+
+note over MON : Запуск по расписанию\n(опрос всех рейсов под слежением)
+
+MON -> MDB : Получает рейсы для мониторинга 
+MDB --> MON : Список отслеживаемых рейсов
 
 MON -> FS : Запрашивает статус рейса
 
 alt Провайдер не отвечает
   FS --x MON : Таймаут
   MON -> MON : Повторяет запрос, затем ждёт следующего цикла
-  note right of MON : Событие не публикуется,\nпользователь видит последний сохраненный статус
+  note right of MON : Событие не публикуется, время проверки не обновляется:\nпользователь увидит последний статус с предупреждением об устаревании
 
 else Статус получен
   FS --> MON : Статус рейса
-  MON -> MON : Проверяет актуальность данных
+  MON -> MON : Проверяет актуальность данных и повторы
+  MON -> MDB : Сохраняет в историю, обновляет время проверки
 
   opt Данные пришли с большой задержкой
     MON -> RP : Запрашивает подтверждение статуса
@@ -36,15 +45,16 @@ else Статус получен
     end
   end
 
-  alt Статус без изменений
+  alt Статус без изменений или задержка ниже допустимой
     note over MON : Проверка завершена
 
-  else Рейс задержан или отменён
+  else Рейс отменён или задержка больше допустимой
     MON ->> KF : Публикует TRIP_DISRUPTION
 
     par Каждый сервис читает событие независимо
       KF ->> CT : TRIP_DISRUPTION
-      CT -> CT : Помечает рейс и связанные сегменты\nкак «Требующие внимания»
+      CT -> CT : Обновляет статус рейса. Если рейс отменён или пересадка не держится,\nпомечает следующий рейс и связанные элементы как «Требующие внимания»
+      CT ->> KF : Публикует FLIGHT_TRACKING_UPDATED\n(если допустимая задержка изменилась)
     else
       KF ->> NT : TRIP_DISRUPTION
       ref over NT : Отправка уведомления пользователям
